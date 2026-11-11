@@ -1,18 +1,16 @@
 {
   "name": "IELTS Band 8+ Cep Kartları",
   "short_name": "IELTS 8+",
-  "start_url": "/ielts-band8/",
-  "scope": "/ielts-band8/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#f8fafc",
   "theme_color": "#4f46e5",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/2232/2232688.png",
+      "src": "./icon.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
