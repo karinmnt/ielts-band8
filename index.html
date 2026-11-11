@@ -3,25 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#4f46e5" />
+  <meta name="theme-color" content="#4f46e5" id="metaThemeColor" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="IELTS Band 8+" />
   <title>IELTS Band 8+ Cep Kartları</title>
   <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="./icon.png" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
   <style>
     :root {
       --bg: #f8fafc;
       --card: #ffffff;
+      --sub-card: #f8fafc;
       --text: #0f172a;
       --muted: #64748b;
       --primary: #4f46e5;
       --primary-light: #eef2ff;
+      --primary-border: #c7d2fe;
       --success: #10b981;
       --danger: #ef4444;
-      --warning: #f59e0b;
       --border: #e2e8f0;
+      --switch-bg: #e2e8f0;
+      --btn-ghost: #f1f5f9;
+      --fixed-bg: #ecfdf5;
+      --fixed-text: #065f46;
+      --fixed-border: #a7f3d0;
+    }
+    body.dark {
+      --bg: #0b1120;
+      --card: #1e293b;
+      --sub-card: #0f172a;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --primary: #818cf8;
+      --primary-light: rgba(99, 102, 241, 0.18);
+      --primary-border: rgba(129, 140, 248, 0.35);
+      --success: #10b981;
+      --danger: #f87171;
+      --border: #334155;
+      --switch-bg: #0f172a;
+      --btn-ghost: #334155;
+      --fixed-bg: rgba(16, 185, 129, 0.16);
+      --fixed-text: #6ee7b7;
+      --fixed-border: rgba(16, 185, 129, 0.35);
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
@@ -33,6 +57,7 @@
       flex-direction: column;
       height: 100dvh;
       overflow: hidden;
+      transition: background 0.2s, color 0.2s;
     }
     header {
       background: var(--card);
@@ -44,11 +69,11 @@
       flex-shrink: 0;
     }
     .brand { font-weight: 800; font-size: 1.05rem; color: var(--primary); display: flex; align-items: center; gap: 6px; }
-    .controls-top { display: flex; gap: 6px; align-items: center; }
-    .accent-btn {
+    .controls-top { display: flex; gap: 8px; align-items: center; }
+    .accent-btn, .theme-btn {
       background: var(--primary-light);
       color: var(--primary);
-      border: 1px solid #c7d2fe;
+      border: 1px solid var(--primary-border);
       border-radius: 8px;
       padding: 5px 10px;
       font-size: 0.78rem;
@@ -90,7 +115,7 @@
       padding: 7px 13px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: #fff;
+      background: var(--card);
       color: var(--muted);
       font-size: 0.8rem;
       font-weight: 600;
@@ -99,9 +124,9 @@
       transition: all 0.15s;
     }
     .cat-pill.active {
-      background: var(--primary);
+      background: #4f46e5;
       color: #fff;
-      border-color: var(--primary);
+      border-color: #4f46e5;
     }
     main {
       flex: 1;
@@ -140,14 +165,14 @@
       background: var(--card);
       border-radius: 20px;
       border: 1px solid var(--border);
-      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
       padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       cursor: pointer;
       position: relative;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s;
     }
     .flashcard:active { transform: scale(0.99); }
     .card-top { display: flex; justify-content: space-between; align-items: center; }
@@ -159,9 +184,9 @@
       background: var(--primary-light);
       color: var(--primary);
     }
-    .badge.mistake { background: #fef2f2; color: var(--danger); }
+    .badge.mistake { background: rgba(239, 68, 68, 0.16); color: var(--danger); }
     .speak-btn {
-      background: #f1f5f9;
+      background: var(--btn-ghost);
       border: none;
       border-radius: 50%;
       width: 38px;
@@ -186,9 +211,9 @@
     }
     .term-main.mistake-text {
       font-size: 1.2rem;
-      color: #b91c1c;
+      color: var(--danger);
       text-decoration: line-through;
-      text-decoration-color: rgba(239, 68, 68, 0.45);
+      text-decoration-color: rgba(239, 68, 68, 0.55);
     }
     .tap-hint {
       text-align: center;
@@ -212,12 +237,12 @@
       border-radius: 12px;
     }
     .meaning-box.fixed-box {
-      background: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
+      background: var(--fixed-bg);
+      color: var(--fixed-text);
+      border: 1px solid var(--fixed-border);
     }
     .example-box {
-      background: #f8fafc;
+      background: var(--sub-card);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 10px 12px;
@@ -236,8 +261,10 @@
     .mini-speak {
       background: none;
       border: none;
+      color: var(--primary);
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 0.82rem;
+      font-weight: 700;
       padding: 2px 6px;
     }
     .tr-sub { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
@@ -260,14 +287,15 @@
       justify-content: center;
       gap: 6px;
     }
-    .btn-repeat { background: #fef3c7; color: #b45309; }
+    .btn-repeat { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    body:not(.dark) .btn-repeat { background: #fef3c7; color: #b45309; }
     .btn-learned { background: var(--success); color: #fff; }
 
     /* Forms */
     .mode-switch {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      background: #e2e8f0;
+      background: var(--switch-bg);
       padding: 4px;
       border-radius: 12px;
       margin-bottom: 14px;
@@ -282,7 +310,7 @@
       color: var(--muted);
       cursor: pointer;
     }
-    .mode-btn.active { background: #fff; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .mode-btn.active { background: var(--card); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
     .form-group { margin-bottom: 12px; }
     label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--text); }
     input, select, textarea {
@@ -292,13 +320,14 @@
       border: 1px solid var(--border);
       font-size: 0.9rem;
       font-family: inherit;
-      background: #fff;
+      background: var(--card);
+      color: var(--text);
     }
     textarea { resize: vertical; min-height: 68px; }
     .btn-submit {
       width: 100%;
       padding: 14px;
-      background: var(--primary);
+      background: #4f46e5;
       color: #fff;
       border: none;
       border-radius: 12px;
@@ -319,13 +348,14 @@
       padding: 8px;
       border-radius: 9px;
       border: 1px solid var(--border);
-      background: #fff;
+      background: var(--card);
+      color: var(--text);
       font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
     }
     .list-item {
-      background: #fff;
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 12px;
@@ -336,7 +366,7 @@
       gap: 10px;
     }
     .del-btn {
-      background: #fee2e2;
+      background: rgba(239, 68, 68, 0.16);
       color: var(--danger);
       border: none;
       border-radius: 8px;
@@ -375,8 +405,9 @@
       bottom: 75px;
       left: 50%;
       transform: translateX(-50%);
-      background: #0f172a;
+      background: #1e293b;
       color: #fff;
+      border: 1px solid #334155;
       padding: 9px 16px;
       border-radius: 999px;
       font-size: 0.82rem;
@@ -399,6 +430,7 @@
 <header>
   <div class="brand">🎓 IELTS Band 8+</div>
   <div class="controls-top">
+    <button id="themeToggle" class="theme-btn" title="Tema Değiştir">🌙</button>
     <button id="accentToggle" class="accent-btn">🇬🇧 UK</button>
   </div>
 </header>
@@ -513,6 +545,20 @@
 <div id="toast" class="toast"></div>
 
 <script>
+  // 0. DARK MODE INIT & TOGGLE
+  const savedTheme = localStorage.getItem('ielts_band8_theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  function applyTheme(isDark) {
+    document.body.classList.toggle('dark', isDark);
+    document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+    document.getElementById('metaThemeColor').setAttribute('content', isDark ? '#1e293b' : '#4f46e5');
+    localStorage.setItem('ielts_band8_theme', isDark ? 'dark' : 'light');
+  }
+  applyTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    applyTheme(!document.body.classList.contains('dark'));
+  });
+
   // 1. SERVICE WORKER & INSTALL PROMPT
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
@@ -593,7 +639,7 @@
 
     if (list.length === 0) {
       counter.textContent = '0 / 0';
-      fc.innerHTML = `<div class="card-center"><div class="term-main" style="font-size:1.1rem;color:#64748b;">Bu kategoride henüz kart yok.<br><br>Alt menüden <b>➕ Yeni Ekle</b> ile ekleyebilirsin.</div></div>`;
+      fc.innerHTML = `<div class="card-center"><div class="term-main" style="font-size:1.1rem;color:var(--muted);">Bu kategoride henüz kart yok.<br><br>Alt menüden <b>➕ Yeni Ekle</b> ile ekleyebilirsin.</div></div>`;
       return;
     }
 
@@ -609,7 +655,7 @@
             <button class="speak-btn" onclick="speak(${JSON.stringify(item.right).replace(/"/g, '&quot;')}, event)">🔊</button>
           </div>
           <div class="card-center">
-            <div style="font-size:0.75rem;color:#64748b;margin-bottom:8px;">❌ Hatalı / Düşük Seviye Kullanım:</div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-bottom:8px;">❌ Hatalı / Düşük Seviye Kullanım:</div>
             <div class="term-main mistake-text">"${item.wrong}"</div>
           </div>
           <div class="tap-hint">Band 8+ doğrusunu görmek için dokun 👆</div>
@@ -617,13 +663,13 @@
       } else {
         fc.innerHTML = `
           <div class="card-top">
-            <span class="badge" style="background:#ecfdf5;color:#065f46;">✅ Band 8+ Doğrusu</span>
+            <span class="badge" style="background:var(--fixed-bg);color:var(--fixed-text);">✅ Band 8+ Doğrusu</span>
             <button class="speak-btn" onclick="speak(${JSON.stringify(item.right).replace(/"/g, '&quot;')}, event)">🔊</button>
           </div>
           <div class="card-back-content">
             <div class="meaning-box fixed-box">"${item.right}"</div>
             ${item.note ? `<div class="example-box"><div class="ex-header">💡 KENDİME NOT</div>${item.note}</div>` : ''}
-            <div class="example-box"><div class="ex-header">❌ ESKİ HALİ</div><span style="color:#64748b;">${item.wrong}</span></div>
+            <div class="example-box"><div class="ex-header">❌ ESKİ HALİ</div><span style="color:var(--muted);">${item.wrong}</span></div>
           </div>
           <div class="tap-hint">Ön yüze dönmek için dokun</div>
         `;
@@ -783,7 +829,7 @@
       <div class="list-item">
         <div>
           <div style="font-weight:700;font-size:0.92rem;">${c.cat === 'mistake' ? '🎯 ' + c.right : c.term}</div>
-          <div style="font-size:0.8rem;color:#64748b;margin-top:3px;">${c.cat === 'mistake' ? '❌ ' + c.wrong : c.meaning}</div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-top:3px;">${c.cat === 'mistake' ? '❌ ' + c.wrong : c.meaning}</div>
         </div>
         <button class="del-btn" onclick="deleteCard('${c.id}')">Sil</button>
       </div>
