@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="IELTS 8+" />
+  <meta name="theme-color" content="#4f46e5" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%234f46e5'/%3E%3Ctext x='50' y='66' font-family='Arial,sans-serif' font-weight='900' font-size='48' fill='white' text-anchor='middle'%3E8%2B%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%234f46e5'/%3E%3Ctext x='50' y='66' font-family='Arial,sans-serif' font-weight='900' font-size='48' fill='white' text-anchor='middle'%3E8%2B%3C/text%3E%3C/svg%3E" />
+  <title>IELTS Band 8+ Cep Kartları & Hata Defterim</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior-y: contain;
+    }
+    .perspective-1000 {
+      perspective: 1200px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans min-h-screen flex flex-col select-none">
+
+  <!-- Toast Bildirim -->
+  <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 -translate-y-2">
+    <div class="bg-slate-900 dark:bg-slate-800 text-white px-4 py-2.5 rounded-2xl shadow-xl border border-slate-700/60 text-xs sm:text-sm font-semibold flex items-center gap-2">
+      <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400"></i>
+      <span id="toast-msg">Kaydedildi</span>
+    </div>
+  </div>
+
+  <!-- Üst Başlık & Kontroller -->
+  <header class="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 py-3">
+    <div class="max-w-xl mx-auto flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-9 h-9 shrink-0 rounded-xl bg-gradient-to-br from-brand-600 to-indigo-500 text-white flex items-center justify-center font-extrabold text-sm shadow-sm">
+          8+
+        </div>
+        <div class="min-w-0">
+          <h1 class="text-sm sm:text-base font-extrabold tracking-tight leading-none truncate">IELTS Band 8+</h1>
+          <p id="header-progress" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1 truncate">Akademik Kelimeler: 0 / 10 Öğrenildi</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button id="accent-btn" onclick="toggleAccent()" class="px-2.5 py-2 rounded-xl text-xs font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition active:scale-95" title="Telaffuz Aksanı">
+          🇬🇧 UK
+        </button>
+        <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition active:scale-95" title="Tema Değiştir">
+          <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
+        </button>
+      </div>
+    </div>
+    <!-- İlerleme Çubuğu -->
+    <div class="max-w-xl mx-auto mt-2.5">
+      <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+        <div id="progress-bar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Ana İçerik -->
+  <main class="flex-1 w-full max-w-xl mx-auto px-4 pt-3 pb-24 flex flex-col">
+
+    <!-- EKRAN 1: ÇALIŞ (FLASHCARDS) -->
+    <section id="view-study" class="flex-1 flex flex-col justify-between">
+      
+      <!-- Kategori Sekmeleri (Karışık Gelmez, Ayrı Ayrı) -->
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
+        <button onclick="selectCategory('Akademik Kelimeler')" data-cat="Akademik Kelimeler" class="cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-brand-600 text-white shadow-sm transition">
+          📘 Akademik Kelimeler
+        </button>
+        <button onclick="selectCategory('Kalıp İfadeler')" data-cat="Kalıp İfadeler" class="cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">
+          🔗 Kalıp İfadeler
+        </button>
+        <button onclick="selectCategory('Hazır Cümle Kalıpları')" data-cat="Hazır Cümle Kalıpları" class="cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">
+          💬 Hazır Cümle Kalıpları
+        </button>
+        <button onclick="selectCategory('Hata Defterim')" data-cat="Hata Defterim" class="cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">
+          🎯 Hata Defterim
+        </button>
+        <button onclick="selectCategory('Benim Eklediklerim')" data-cat="Benim Eklediklerim" class="cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">
+          ⭐ Benim Eklediklerim
+        </button>
+      </div>
+
+      <!-- Üst Bilgi Satırı: Kart Sayacı, Karıştır & Sıfırla -->
+      <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-semibold py-1.5 px-1">
+        <span id="card-counter">Kart 1 / 10</span>
+        <div class="flex items-center gap-3">
+          <button onclick="resetCategoryMastery()" class="hover:text-amber-600 dark:hover:text-amber-400 transition flex items-center gap-1 py-1">
+            <i class="fa-solid fa-rotate-left"></i> Sıfırla
+          </button>
+          <button onclick="shuffleCurrentDeck()" class="hover:text-brand-600 dark:hover:text-brand-400 transition flex items-center gap-1 py-1">
+            <i class="fa-solid fa-shuffle"></i> Karıştır
+          </button>
+        </div>
+      </div>
+
+      <!-- Boş Kategori Durumu -->
+      <div id="empty-state" class="hidden flex-1 flex flex-col items-center justify-center text-center p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 my-2">
+        <div class="w-14 h-14 rounded-2xl bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-2xl mb-3">
+          <i class="fa-solid fa-folder-open"></i>
+        </div>
+        <h3 id="empty-title" class="text-base font-extrabold mb-1">Bu bölümde henüz kart yok</h3>
+        <p id="empty-desc" class="text-xs text-slate-500 dark:text-slate-400 mb-4 max-w-xs">Alt menüdeki "Yeni Ekle" sekmesinden kendi kelimelerinizi veya hata notlarınızı ekleyebilirsiniz.</p>
+        <button onclick="switchTab('add')" class="px-5 py-3 rounded-2xl bg-brand-600 text-white text-xs font-bold shadow-sm hover:bg-brand-700 transition">
+          <i class="fa-solid fa-plus mr-1.5"></i> Yeni Ekle
+        </button>
+      </div>
+
+      <!-- 3D Flashcard Alanı -->
+      <div id="card-area" class="perspective-1000 flex-1 min-h-[380px] sm:min-h-[420px] my-1 cursor-pointer" onclick="flipCard()">
+        <div id="card-inner" class="relative w-full h-full min-h-[380px] sm:min-h-[420px] transform-style-3d">
+          
+          <!-- ÖN YÜZ -->
+          <div id="card-front" class="backface-hidden absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none p-5 sm:p-6 flex flex-col justify-between">
+            <!-- Üst Etiketler -->
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span id="front-cat-badge" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-brand-50 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300">
+                  Akademik Kelimeler
+                </span>
+                <span id="front-skill-badge" class="hidden px-2.5 py-1 rounded-lg text-[11px] font-bold bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300">
+                  🗣️ Speaking
+                </span>
+                <span id="front-custom-badge" class="hidden px-2 py-1 rounded-lg text-[11px] font-bold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">
+                  ⭐ Özel
+                </span>
+              </div>
+              <span id="front-status-badge" class="shrink-0 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/70 dark:border-amber-800/50">
+                Tekrar
+              </span>
+            </div>
+
+            <!-- Orta Alan: Kelime / Kalıp veya Hatalı Cümle -->
+            <div class="my-auto py-4 text-center flex flex-col items-center">
+              <span id="front-mistake-tag" class="hidden mb-2 px-3 py-1 rounded-full text-[11px] font-extrabold bg-rose-50 dark:bg-rose-950/70 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800/60">
+                ❌ Hatalı / Düşük Seviye Kullanım
+              </span>
+              <h2 id="front-term" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug break-words max-w-full px-1">
+                Ubiquitous
+              </h2>
+              <p id="front-sub" class="text-xs sm:text-sm text-slate-400 dark:text-slate-500 mt-2 font-medium">
+                /juːˈbɪk.wɪ.təs/
+              </p>
+
+              <!-- Ön Yüz Sesli Dinleme Butonu -->
+              <button type="button" onclick="event.stopPropagation(); speakFront()" class="mt-6 inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-brand-50 hover:bg-brand-100 dark:bg-brand-900/30 dark:hover:bg-brand-900/50 text-brand-700 dark:text-brand-300 font-bold text-xs sm:text-sm transition active:scale-95 border border-brand-200/60 dark:border-brand-700/40">
+                <i class="fa-solid fa-volume-high"></i>
+                <span id="front-speak-label">Telaffuzu Dinle</span>
+              </button>
+            </div>
+
+            <!-- Alt İpucu -->
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+              <span id="front-hint">Açıklama ve örnekler için karta dokun</span>
+              <span><i class="fa-solid fa-hand-pointer mr-1"></i>Çevir</span>
+            </div>
+          </div>
+
+          <!-- ARKA YÜZ -->
+          <div id="card-back" class="backface-hidden rotate-y-180 absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl border-2 border-brand-500/30 dark:border-brand-500/40 shadow-xl p-5 flex flex-col justify-between overflow-y-auto">
+            <div>
+              <!-- Arka Yüz Üst Bar -->
+              <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-2 min-w-0">
+                  <h3 id="back-title" class="text-base font-extrabold text-brand-600 dark:text-brand-400 truncate">
+                    Ubiquitous
+                  </h3>
+                  <button type="button" onclick="event.stopPropagation(); speakFront()" class="w-8 h-8 shrink-0 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 flex items-center justify-center hover:bg-brand-100 transition" title="Dinle">
+                    <i class="fa-solid fa-volume-high text-xs"></i>
+                  </button>
+                </div>
+                <button type="button" id="back-delete-btn" onclick="event.stopPropagation(); deleteActiveCard()" class="hidden px-2.5 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 text-xs font-bold hover:bg-rose-100 transition" title="Kartı Sil">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+
+              <!-- Standart İçerik (Kelime / Kalıp / Hazır Cümle) -->
+              <div id="back-standard-body">
+                <div class="mt-3">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Türkçe Anlamı & Kullanım İpucu</span>
+                  <p id="back-meaning" class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white mt-0.5 leading-snug">
+                    Her yerde bulunan, çok yaygın
+                  </p>
+                  <p id="back-tip" class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                    Günlük "very common" yerine kullanılır.
+                  </p>
+                </div>
+
+                <!-- Örnek 1: Writing -->
+                <div class="mt-3 p-3 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 dark:text-indigo-300">✍️ Writing Örneği</span>
+                    <button type="button" onclick="event.stopPropagation(); speakExample(1)" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-300 text-[11px] font-bold shadow-sm hover:bg-indigo-100 transition">
+                      <i class="fa-solid fa-volume-high text-[10px]"></i> Dinle
+                    </button>
+                  </div>
+                  <p id="back-ex1" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 leading-relaxed"></p>
+                  <p id="back-ex1-tr" class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 italic"></p>
+                </div>
+
+                <!-- Örnek 2: Speaking -->
+                <div id="back-ex2-box" class="mt-2.5 p-3 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/25 border border-emerald-100 dark:border-emerald-900/40">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">🗣️ Speaking Örneği</span>
+                    <button type="button" onclick="event.stopPropagation(); speakExample(2)" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 text-emerald-600 dark:text-emerald-300 text-[11px] font-bold shadow-sm hover:bg-emerald-100 transition">
+                      <i class="fa-solid fa-volume-high text-[10px]"></i> Dinle
+                    </button>
+                  </div>
+                  <p id="back-ex2" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 leading-relaxed"></p>
+                  <p id="back-ex2-tr" class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 italic"></p>
+                </div>
+              </div>
+
+              <!-- Hata Defteri İçeriği (Band 8+ Düzeltme & Not) -->
+              <div id="back-mistake-body" class="hidden">
+                <div class="mt-3 p-3.5 rounded-2xl bg-emerald-50/90 dark:bg-emerald-950/35 border border-emerald-200 dark:border-emerald-800/60">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">✅ Band 8+ Doğrusu</span>
+                    <button type="button" onclick="event.stopPropagation(); speakExample(1)" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 text-xs font-bold shadow-sm hover:bg-emerald-100 transition">
+                      <i class="fa-solid fa-volume-high text-[11px]"></i> Dinle
+                    </button>
+                  </div>
+                  <p id="back-correction" class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-relaxed"></p>
+                </div>
+
+                <div id="back-mistake-note-wrap" class="mt-3 p-3.5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/25 border border-amber-200/80 dark:border-amber-800/40">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 dark:text-amber-300 block mb-1">💡 Neden / Sınav Notu</span>
+                  <p id="back-mistake-note" class="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-2.5 mt-2 border-t border-slate-100 dark:border-slate-800 text-center text-[11px] text-slate-400 font-medium">
+              Ön yüze dönmek için dokun
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Alt Kontrol Butonları (Önceki, Tekrar Et, Öğrendim, Sonraki) -->
+      <div id="study-controls" class="grid grid-cols-4 gap-2 pt-2">
+        <button onclick="prevCard()" class="py-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs flex flex-col items-center justify-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition">
+          <i class="fa-solid fa-chevron-left text-sm"></i>
+          <span>Önceki</span>
+        </button>
+
+        <button onclick="setCardMastery(false)" class="py-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 text-amber-700 dark:text-amber-300 font-extrabold text-xs flex flex-col items-center justify-center gap-1 hover:bg-amber-100 active:scale-95 transition">
+          <i class="fa-solid fa-rotate-right text-sm"></i>
+          <span>Tekrar Et</span>
+        </button>
+
+        <button onclick="setCardMastery(true)" class="py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex flex-col items-center justify-center gap-1 shadow-sm shadow-emerald-600/20 active:scale-95 transition">
+          <i class="fa-solid fa-check text-sm"></i>
+          <span>Öğrendim</span>
+        </button>
+
+        <button onclick="nextCard()" class="py-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs flex flex-col items-center justify-center gap-1 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition">
+          <i class="fa-solid fa-chevron-right text-sm"></i>
+          <span>Sonraki</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- EKRAN 2: YENİ EKLE (ÇİFT MODLU: KELİME/KALIP & HATA NOTU) -->
+    <section id="view-add" class="hidden flex-1 flex flex-col">
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+        
+        <!-- Mod Seçici -->
+        <div class="grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-slate-100 dark:bg-slate-800 mb-5">
+          <button type="button" id="mode-vocab-btn" onclick="switchAddMode('vocab')" class="py-2.5 px-3 rounded-xl text-xs font-extrabold bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm transition">
+            📘 Kelime / Kalıp Ekle
+          </button>
+          <button type="button" id="mode-mistake-btn" onclick="switchAddMode('mistake')" class="py-2.5 px-3 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-400 transition">
+            🎯 Hata Notu Ekle
+          </button>
+        </div>
+
+        <!-- FORM A: KELİME / KALIP EKLE -->
+        <form id="form-vocab" onsubmit="saveNewVocab(event)" class="space-y-3.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kategori *</label>
+            <select id="v-category" class="w-full px-3.5 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500">
+              <option value="Akademik Kelimeler">📘 Akademik Kelimeler</option>
+              <option value="Kalıp İfadeler">🔗 Kalıp İfadeler (Collocations)</option>
+              <option value="Hazır Cümle Kalıpları">💬 Hazır Cümle Kalıpları</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">İngilizce Kelime veya İfade *</label>
+            <input type="text" id="v-term" required placeholder="Örn: Bolster / Pave the way for / What stands out most is..." class="w-full px-3.5 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Türkçe Anlamı *</label>
+            <input type="text" id="v-meaning" required placeholder="Örn: Desteklemek, güçlendirmek" class="w-full px-3.5 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kullanım İpucu <span class="text-slate-400 font-normal">(Opsiyonel)</span></label>
+            <input type="text" id="v-tip" placeholder="Örn: 'Support' yerine ekonomi veya güveni artırmaktan bahsederken kullanılır." class="w-full px-3.5 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Writing Örnek Cümlesi *</label>
+            <textarea id="v-ex1" required rows="2" placeholder="Örn: Renewable energy subsidies can bolster domestic job creation." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Writing Örneği Türkçe Çevirisi <span class="text-slate-400 font-normal">(Opsiyonel)</span></label>
+            <input type="text" id="v-ex1-tr" placeholder="Örn: Yenilenebilir enerji teşvikleri yurt içi istihdam yaratımını güçlendirebilir." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Speaking Örnek Cümlesi <span class="text-slate-400 font-normal">(Opsiyonel)</span></label>
+            <textarea id="v-ex2" rows="2" placeholder="Örn: Practicing with a partner really helped bolster my confidence before the exam." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm shadow-md shadow-brand-600/20 active:scale-[0.99] transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-bookmark"></i>
+            <span>Kaydet ve Çalışmaya Başla</span>
+          </button>
+        </form>
+
+        <!-- FORM B: HATA NOTU EKLE -->
+        <form id="form-mistake" onsubmit="saveNewMistake(event)" class="hidden space-y-3.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Hata Türü *</label>
+            <div class="grid grid-cols-2 gap-2.5">
+              <label class="cursor-pointer">
+                <input type="radio" name="m-skill" value="Speaking" checked class="peer hidden">
+                <div class="py-3 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-center text-xs font-extrabold text-slate-600 dark:text-slate-300 peer-checked:bg-rose-600 peer-checked:text-white peer-checked:border-rose-600 transition">
+                  🗣️ Speaking
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="m-skill" value="Writing" class="peer hidden">
+                <div class="py-3 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-center text-xs font-extrabold text-slate-600 dark:text-slate-300 peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600 transition">
+                  ✍️ Writing
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-rose-600 dark:text-rose-400 mb-1">❌ Yaptığım Hatalı / Basit Cümle *</label>
+            <textarea id="m-wrong" required rows="2" placeholder="Örn: People use smartphones everywhere nowadays and it makes them lazy." class="w-full px-3.5 py-2.5 rounded-xl bg-rose-50/40 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/60 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-rose-500"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-1">✅ Band 8+ Doğrusu *</label>
+            <textarea id="m-correct" required rows="2" placeholder="Örn: Smartphones have become ubiquitous in modern life, fostering a increasingly sedentary lifestyle." class="w-full px-3.5 py-2.5 rounded-xl bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/60 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">💡 Not / Hatırlatma İpucu <span class="text-slate-400 font-normal">(Opsiyonel)</span></label>
+            <input type="text" id="m-note" placeholder="Örn: 'Everywhere' yerine 'ubiquitous', 'lazy' yerine 'sedentary lifestyle' kullan." class="w-full px-3.5 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-sm shadow-md shadow-rose-600/20 active:scale-[0.99] transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-check-double"></i>
+            <span>Hata Defterime Kaydet</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- EKRAN 3: LİSTEM & YEDEKLE -->
+    <section id="view-list" class="hidden flex-1 flex flex-col">
+      <!-- Tek Tıkla JSON Yedekle / Yükle Kartı -->
+      <div class="mb-3 p-3.5 rounded-2xl bg-brand-50/90 dark:bg-brand-950/40 border border-brand-200/80 dark:border-brand-800/50 flex items-center justify-between gap-2">
+        <div class="min-w-0">
+          <p class="text-xs font-extrabold text-brand-900 dark:text-brand-200">JSON Yedekleme & Aktarım</p>
+          <p class="text-[11px] text-brand-700/80 dark:text-brand-300/80 truncate">Kelimeleriniz ve hata defteriniz tek dosyada.</p>
+        </div>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button onclick="exportJSON()" class="px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold shadow-sm transition flex items-center gap-1.5">
+            <i class="fa-solid fa-download"></i> Yedekle
+          </button>
+          <label class="px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-extrabold cursor-pointer hover:bg-slate-100 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-upload"></i> Yükle
+            <input type="file" accept=".json" onchange="importJSON(event)" class="hidden">
+          </label>
+        </div>
+      </div>
+
+      <!-- Arama & Filtreleme -->
+      <div class="space-y-2 mb-3">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input type="text" id="search-input" oninput="renderListView()" placeholder="Kelime, anlam veya hata cümlesi ara..." class="w-full pl-9 pr-4 py-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+          <button onclick="selectListFilter('ALL')" data-lf="ALL" class="lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white transition">Tümü</button>
+          <button onclick="selectListFilter('Hata Defterim')" data-lf="Hata Defterim" class="lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">🎯 Hata Defterim</button>
+          <button onclick="selectListFilter('Speaking')" data-lf="Speaking" class="lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">🗣️ Speaking</button>
+          <button onclick="selectListFilter('Writing')" data-lf="Writing" class="lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">✍️ Writing</button>
+          <button onclick="selectListFilter('Akademik Kelimeler')" data-lf="Akademik Kelimeler" class="lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">📘 Akademik Kelimeler</button>
+          <button onclick="selectListFilter('Kalıp İfadeler')" data-lf="Kalıp İfadeler" class="lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">🔗 Kalıp İfadeler</button>
+          <button onclick="selectListFilter('Hazır Cümle Kalıpları')" data-lf="Hazır Cümle Kalıpları" class="lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">💬 Hazır Kalıplar</button>
+          <button onclick="selectListFilter('Benim Eklediklerim')" data-lf="Benim Eklediklerim" class="lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition">⭐ Benim Eklediklerim</button>
+        </div>
+      </div>
+
+      <!-- Kayıt Listesi -->
+      <div id="list-container" class="space-y-2.5"></div>
+    </section>
+
+  </main>
+
+  <!-- Sabit Alt Navigasyon (3 Sekme) -->
+  <nav class="fixed bottom-0 inset-x-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-4 py-2">
+    <div class="max-w-xl mx-auto grid grid-cols-3 gap-2">
+      <button onclick="switchTab('study')" id="tab-study" class="flex flex-col items-center justify-center py-2 rounded-2xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 font-extrabold transition">
+        <i class="fa-solid fa-layer-group text-base mb-0.5"></i>
+        <span class="text-[11px]">Çalış</span>
+      </button>
+      <button onclick="switchTab('add')" id="tab-add" class="flex flex-col items-center justify-center py-2 rounded-2xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold transition">
+        <i class="fa-solid fa-circle-plus text-base mb-0.5"></i>
+        <span class="text-[11px]">Yeni Ekle</span>
+      </button>
+      <button onclick="switchTab('list')" id="tab-list" class="flex flex-col items-center justify-center py-2 rounded-2xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold transition">
+        <i class="fa-solid fa-list-ul text-base mb-0.5"></i>
+        <span class="text-[11px]">Listem (<span id="total-badge">0</span>)</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    // =========================================================================
+    // 1. ZENGİN BAND 8+ HAZIR VERİ SETİ
+    // =========================================================================
+    const INITIAL_ITEMS = [
+      // --- AKADEMİK KELİMELER (10) ---
+      {
+        id: 'ak1',
+        category: 'Akademik Kelimeler',
+        term: 'Ubiquitous',
+        sub: '/juːˈbɪk.wɪ.təs/',
+        meaning: 'Her yerde bulunan, çok yaygın',
+        tip: '"Very common" yerine özellikle teknoloji, internet ve şehir yaşamı sorularında doğrudan Band 8 havası verir.',
+        ex1: 'Smartphones have become ubiquitous in modern society, fundamentally altering how people communicate.',
+        ex1Tr: 'Akıllı telefonlar modern toplumda her yerde bulunur hale geldi ve insanların iletişim kurma biçimini kökten değiştirdi.',
+        ex2: 'In my hometown, coffee shops are practically ubiquitous; you can find one on almost every street corner.',
+        ex2Tr: 'Memleketimde kafeler neredeyse her yerde var; hemen her köşe başında bir tane bulabilirsiniz.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak2',
+        category: 'Akademik Kelimeler',
+        term: 'Exacerbate',
+        sub: '/ɪɡˈzæs.ə.beɪt/',
+        meaning: 'Daha da kötüleştirmek, şiddetlendirmek',
+        tip: '"Make worse" yerine kullanılır. Trafik, kirlilik veya stres gibi sorunların büyümesini anlatırken çok etkilidir.',
+        ex1: 'Rapid urbanization without proper infrastructure only serves to exacerbate traffic congestion.',
+        ex1Tr: 'Uygun altyapı olmadan gerçekleşen hızlı kentleşme, yalnızca trafik sıkışıklığını daha da kötüleştirir.',
+        ex2: 'Constantly checking work emails at night can really exacerbate stress and ruin your sleep quality.',
+        ex2Tr: 'Geceleri sürekli iş e-postalarını kontrol etmek stresi gerçekten artırabilir ve uyku kalitenizi bozabilir.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak3',
+        category: 'Akademik Kelimeler',
+        term: 'Mitigate',
+        sub: '/ˈmɪt.ɪ.ɡeɪt/',
+        meaning: 'Hafifletmek, etkisini azaltmak',
+        tip: 'Zararı veya riski azaltmaktan bahsederken "reduce" yerine kullanılabilecek en güçlü akademik fiillerdendir.',
+        ex1: 'Governments should invest in renewable energy to mitigate the devastating effects of climate change.',
+        ex1Tr: 'Hükümetler, iklim değişikliğinin yıkıcı etkilerini hafifletmek için yenilenebilir enerjiye yatırım yapmalıdır.',
+        ex2: 'Doing regular exercise is a great way to mitigate the negative impact of sitting at a desk all day.',
+        ex2Tr: 'Düzenli egzersiz yapmak, bütün gün masa başında oturmanın olumsuz etkisini azaltmanın harika bir yoludur.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak4',
+        category: 'Akademik Kelimeler',
+        term: 'Detrimental',
+        sub: '/ˌdet.rɪˈmen.təl/',
+        meaning: 'Zararlı, olumsuz etkisi olan',
+        tip: '"Bad" veya "harmful" yerine "be detrimental to..." kalıbıyla kullanıldığında cümleyi anında üst seviyeye taşır.',
+        ex1: 'Excessive screen time can be highly detrimental to the cognitive development of young children.',
+        ex1Tr: 'Aşırı ekran süresi küçük çocukların bilişsel gelişimi üzerinde son derece zararlı olabilir.',
+        ex2: 'Working overtime every single week is definitely detrimental to a person’s work-life balance.',
+        ex2Tr: 'Her hafta fazla mesai yapmak, kişinin iş-yaşam dengesi için kesinlikle zararlıdır.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak5',
+        category: 'Akademik Kelimeler',
+        term: 'Lucrative',
+        sub: '/ˈluː.krə.tɪv/',
+        meaning: 'Çok kârlı, kazançlı',
+        tip: 'Kariyer seçimleri, iş dünyası veya turizm gelirleri hakkında konuşurken "profitable" veya "high-paying" yerine kullanılır.',
+        ex1: 'International tourism has become an increasingly lucrative industry for many developing nations.',
+        ex1Tr: 'Uluslararası turizm, birçok gelişmekte olan ülke için giderek daha kârlı bir sektör haline geldi.',
+        ex2: 'Many graduates choose careers in software engineering because it is both challenging and lucrative.',
+        ex2Tr: 'Birçok mezun hem zorlayıcı hem de kazançlı olduğu için yazılım mühendisliği kariyerini seçiyor.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak6',
+        category: 'Akademik Kelimeler',
+        term: 'Caveat',
+        sub: '/ˈkæv.i.æt/',
+        meaning: 'Önemli uyarı, şerh, istisna',
+        tip: 'Bir görüşe katılırken "ancak şu şerhle / şu noktaya dikkat etmek kaydıyla" derken çok sofistike bir geçiş sağlar.',
+        ex1: 'Online education offers tremendous flexibility, albeit with the caveat that students must be self-disciplined.',
+        ex1Tr: 'Çevrimiçi eğitim muazzam bir esneklik sunar, ancak öğrencilerin öz disiplinli olması gerektiği şerhiyle.',
+        ex2: 'I agree that travelling alone is enriching, with one major caveat: you have to be extra cautious about safety.',
+        ex2Tr: 'Tek başına seyahat etmenin ufuk açıcı olduğuna katılıyorum, tek bir önemli uyarıyla: güvenlik konusunda ekstra dikkatli olmalısınız.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak7',
+        category: 'Akademik Kelimeler',
+        term: 'Paradigm shift',
+        sub: '/ˈpær.ə.daɪm ʃɪft/',
+        meaning: 'Köklü bakış açısı / düzen değişimi',
+        tip: '"Big change" yerine yapay zekâ, uzaktan çalışma veya yeşil enerji gibi devrim niteliğindeki dönüşümler için kullanılır.',
+        ex1: 'The widespread adoption of remote work represents a fundamental paradigm shift in corporate culture.',
+        ex1Tr: 'Uzaktan çalışmanın yaygınlaşması, kurum kültüründe köklü bir paradigma değişimini temsil etmektedir.',
+        ex2: 'Switching from fossil fuels to electric vehicles requires a major paradigm shift in how we think about transport.',
+        ex2Tr: 'Fosil yakıtlardan elektrikli araçlara geçmek, ulaşım hakkındaki düşüncelerimizde büyük bir köklü değişim gerektirir.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak8',
+        category: 'Akademik Kelimeler',
+        term: 'Bolster',
+        sub: '/ˈbəʊl.stər/',
+        meaning: 'Desteklemek, güçlendirmek, artırmak',
+        tip: 'Ekonomiyi, özgüveni veya bir argümanı güçlendirmekten bahsederken "support" veya "improve" yerine harikadır.',
+        ex1: 'Investing in vocational training programs can significantly bolster national economic resilience.',
+        ex1Tr: 'Mesleki eğitim programlarına yatırım yapmak, ulusal ekonomik dayanıklılığı önemli ölçüde güçlendirebilir.',
+        ex2: 'Studying abroad really helped bolster my confidence when speaking English in professional settings.',
+        ex2Tr: 'Yurt dışında eğitim almak, profesyonel ortamlarda İngilizce konuşurken özgüvenimi artırmaya gerçekten yardımcı oldu.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak9',
+        category: 'Akademik Kelimeler',
+        term: 'Stringent',
+        sub: '/ˈstrɪn.dʒənt/',
+        meaning: 'Çok sıkı, katı (kurallar, denetimler)',
+        tip: '"Strict" yerine çevre yasaları, gıda güvenliği veya veri koruma düzenlemelerini anlatırken kullanılır.',
+        ex1: 'Governments must enforce more stringent regulations to curb industrial carbon emissions.',
+        ex1Tr: 'Hükümetler, endüstriyel karbon emisyonlarını dizginlemek için daha sıkı düzenlemeler uygulamalıdır.',
+        ex2: 'Airports have introduced much more stringent security checks over the past two decades.',
+        ex2Tr: 'Havalimanları son yirmi yılda çok daha sıkı güvenlik kontrolleri uygulamaya başladı.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ak10',
+        category: 'Akademik Kelimeler',
+        term: 'Proliferate',
+        sub: '/prəˈlɪf.ər.eɪt/',
+        meaning: 'Hızla çoğalmak, hızla yayılmak',
+        tip: '"Increase rapidly" yerine sosyal medya platformları, dijital cihazlar veya yanlış bilginin yayılması için kullanılır.',
+        ex1: 'Misinformation tends to proliferate rapidly on social media platforms lacking proper fact-checking.',
+        ex1Tr: 'Yanlış bilgi, uygun doğrulama mekanizmasından yoksun sosyal medya platformlarında hızla yayılma eğilimindedir.',
+        ex2: 'Over the last few years, food delivery apps have proliferated in almost every major city.',
+        ex2Tr: 'Son birkaç yılda yemek siparişi uygulamaları neredeyse her büyük şehirde hızla çoğaldı.',
+        mastered: false,
+        isCustom: false
+      },
+
+      // --- KALIP İFADELER / COLLOCATIONS (6) ---
+      {
+        id: 'ki1',
+        category: 'Kalıp İfadeler',
+        term: 'Pose a serious threat to',
+        sub: 'Ciddi bir tehdit oluşturmak',
+        meaning: '...için ciddi bir tehdit oluşturmak',
+        tip: '"Be dangerous for" yerine çevre, gizlilik, sağlık veya yerel kültür konularında doğal ve güçlü bir kalıptır.',
+        ex1: 'Unregulated data collection by tech giants poses a serious threat to individual privacy.',
+        ex1Tr: 'Teknoloji devlerinin denetimsiz veri toplaması, bireysel gizlilik için ciddi bir tehdit oluşturmaktadır.',
+        ex2: 'Fast-food culture poses a real threat to traditional home cooking in big cities.',
+        ex2Tr: 'Fast-food kültürü, büyük şehirlerde geleneksel ev yemekleri için gerçek bir tehdit oluşturuyor.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ki2',
+        category: 'Kalıp İfadeler',
+        term: 'Bridge the gap between',
+        sub: 'Aradaki uçurumu / farkı kapatmak',
+        meaning: '...arasındaki uçurumu / mesafeyi kapatmak',
+        tip: 'Nesiller, sosyal sınıflar veya teori ile pratik arasındaki farkı azaltmaktan bahsederken çok doğal durur.',
+        ex1: 'Community centers can effectively bridge the gap between older residents and younger generations.',
+        ex1Tr: 'Toplum merkezleri, yaşlı sakinler ile genç nesiller arasındaki uçurumu etkili bir şekilde kapatabilir.',
+        ex2: 'Internships are essential because they help bridge the gap between university theory and real-world work.',
+        ex2Tr: 'Stajlar çok önemlidir çünkü üniversite teorisi ile gerçek iş hayatı arasındaki farkı kapatmaya yardımcı olurlar.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ki3',
+        category: 'Kalıp İfadeler',
+        term: 'Alleviate the burden on',
+        sub: 'Üzerindeki yükü hafifletmek',
+        meaning: '...üzerindeki yükü / baskıyı hafifletmek',
+        tip: 'Sağlık sistemi, vergi mükellefleri, çalışan ebeveynler veya şehir trafiği üzerindeki yükü azaltmayı anlatır.',
+        ex1: 'Expanding public transit networks would significantly alleviate the burden on congested city roads.',
+        ex1Tr: 'Toplu taşıma ağlarının genişletilmesi, sıkışık şehir yolları üzerindeki yükü önemli ölçüde hafifletecektir.',
+        ex2: 'Affordable childcare services help alleviate the financial burden on working parents.',
+        ex2Tr: 'Uygun fiyatlı çocuk bakım hizmetleri, çalışan ebeveynler üzerindeki maddi yükü hafifletmeye yardımcı olur.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ki4',
+        category: 'Kalıp İfadeler',
+        term: 'Exert a profound impact on',
+        sub: 'Üzerinde derin bir etki yaratmak',
+        meaning: '...üzerinde derin ve kalıcı bir etki yaratmak',
+        tip: '"Have a big effect on" yerine kullanıldığında kelime puanınızı (Lexical Resource) doğrudan yükseltir.',
+        ex1: 'Peer groups often exert a profound impact on adolescents’ lifestyle choices and personal values.',
+        ex1Tr: 'Akran grupları, ergenlerin yaşam tarzı seçimleri ve kişisel değerleri üzerinde genellikle derin bir etki yaratır.',
+        ex2: 'My high school literature teacher exerted a profound impact on my decision to pursue a creative career.',
+        ex2Tr: 'Lise edebiyat öğretmenim, yaratıcı bir kariyer seçme kararımda çok derin bir etki yarattı.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ki5',
+        category: 'Kalıp İfadeler',
+        term: 'Pave the way for',
+        sub: '...için zemin hazırlamak / önünü açmak',
+        meaning: '...için zemin hazırlamak, yolunu açmak',
+        tip: 'Bilimsel keşiflerin, yeni yasaların veya eğitim fırsatlarının gelecekteki gelişmeleri mümkün kıldığını anlatır.',
+        ex1: 'Breakthroughs in battery technology have paved the way for affordable long-range electric vehicles.',
+        ex1Tr: 'Batarya teknolojisindeki atılımlar, uygun fiyatlı uzun menzilli elektrikli araçların önünü açtı.',
+        ex2: 'Learning how to code in high school can pave the way for numerous career opportunities later in life.',
+        ex2Tr: 'Lisede kodlama öğrenmek, hayatın ilerleyen dönemlerinde sayısız kariyer fırsatının önünü açabilir.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'ki6',
+        category: 'Kalıp İfadeler',
+        term: 'Stem the tide of',
+        sub: '...akışını / yayılmasını durdurmak',
+        meaning: 'Olumsuz bir durumun yayılmasını dizginlemek / durdurmak',
+        tip: 'Beyin göçü, çevre kirliliği veya suç oranları gibi olumsuz trendlerin önünü kesmekten bahsederken kullanılır.',
+        ex1: 'Offering competitive research grants is essential to stem the tide of brain drain in developing countries.',
+        ex1Tr: 'Rekabetçi araştırma hibeleri sunmak, gelişmekte olan ülkelerdeki beyin göçünün önünü kesmek için elzemdir.',
+        ex2: 'Strict plastic bans are a necessary first step to stem the tide of ocean pollution.',
+        ex2Tr: 'Sıkı plastik yasakları, okyanus kirliliğinin yayılmasını durdurmak için gerekli bir ilk adımdır.',
+        mastered: false,
+        isCustom: false
+      },
+
+      // --- HAZIR CÜMLE KALIPLARI (6) ---
+      {
+        id: 'hc1',
+        category: 'Hazır Cümle Kalıpları',
+        term: 'It is widely acknowledged that...',
+        sub: 'Genel kabul görmüş bir gerçektir ki...',
+        meaning: 'Herkes tarafından kabul edilmektedir ki...',
+        tip: 'Writing Task 2 girişinde veya Speaking Part 3’te herkesin bildiği genel bir gerçeği sunarken "Everyone knows that..." yerine kullanın.',
+        ex1: 'It is widely acknowledged that early childhood education lays the foundation for lifelong learning.',
+        ex1Tr: 'Erken çocukluk eğitiminin yaşam boyu öğrenmenin temelini attığı genel olarak kabul edilmektedir.',
+        ex2: 'It’s widely acknowledged that learning a second language opens up far better career opportunities.',
+        ex2Tr: 'İkinci bir dil öğrenmenin çok daha iyi kariyer fırsatları sunduğu genel kabul gören bir gerçektir.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'hc2',
+        category: 'Hazır Cümle Kalıpları',
+        term: 'When it comes to...',
+        sub: '...söz konusu olduğunda / ...konusuna gelince',
+        meaning: '...konusuna gelince, ...söz konusu olduğunda',
+        tip: 'Speaking ve Writing’de konuyu spesifik bir alana daraltırken "About..." yerine en doğal geçiş kalıbıdır.',
+        ex1: 'When it comes to reducing carbon emissions, individual actions must be backed by government policies.',
+        ex1Tr: 'Karbon emisyonlarını azaltmak söz konusu olduğunda, bireysel eylemler hükümet politikalarıyla desteklenmelidir.',
+        ex2: 'When it comes to choosing a restaurant, I usually prefer quiet local places over noisy chains.',
+        ex2Tr: 'Restoran seçmeye gelince, genellikle gürültülü zincir restoranlar yerine sakin yerel mekânları tercih ederim.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'hc3',
+        category: 'Hazır Cümle Kalıpları',
+        term: 'By and large,...',
+        sub: 'Genel olarak bakıldığında / Büyük ölçüde',
+        meaning: 'Genel olarak, ana hatlarıyla',
+        tip: 'Speaking Part 1 ve Part 3’te "In general" veya "Usually" yerine kullandığınızda kulağa çok doğal ve akıcı gelir.',
+        ex1: 'By and large, technological advancements have made everyday household chores far less time-consuming.',
+        ex1Tr: 'Genel olarak bakıldığında, teknolojik gelişmeler günlük ev işlerini çok daha az zaman alıcı hale getirdi.',
+        ex2: 'By and large, people in my city are quite welcoming and always willing to help tourists.',
+        ex2Tr: 'Genel olarak şehrimdeki insanlar oldukça misafirperverdir ve turistlere yardım etmeye her zaman isteklidir.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'hc4',
+        category: 'Hazır Cümle Kalıpları',
+        term: 'A compelling argument in favor of... is that...',
+        sub: '...lehine ikna edici bir argüman şudur ki...',
+        meaning: '...görüşünü destekleyen güçlü bir gerekçe şudur ki...',
+        tip: 'Bir fikri savunurken "One good reason for... is..." yerine kullanarak argümanınıza ağırlık katın.',
+        ex1: 'A compelling argument in favor of remote work is that it eliminates daily commuting stress and boosts productivity.',
+        ex1Tr: 'Uzaktan çalışmayı destekleyen güçlü bir argüman, günlük işe gidiş geliş stresini ortadan kaldırması ve üretkenliği artırmasıdır.',
+        ex2: 'A compelling argument in favor of public libraries is that they give everyone equal access to knowledge.',
+        ex2Tr: 'Halk kütüphanelerini destekleyen ikna edici bir gerekçe, herkese bilgiye eşit erişim imkânı sunmalarıdır.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'hc5',
+        category: 'Hazır Cümle Kalıpları',
+        term: 'While it is true that..., one cannot overlook...',
+        sub: '...doğru olsa da, ...göz ardı edilemez',
+        meaning: '...gerçek olsa da, ...konusu göz ardı edilemez',
+        tip: 'Karşıt görüşe hak verip kendi ana fikrinize güçlü bir geçiş yapmak için en şık dengeli cümle kalıbıdır.',
+        ex1: 'While it is true that space exploration is costly, one cannot overlook its immense scientific and technological spin-offs.',
+        ex1Tr: 'Uzay araştırmalarının maliyetli olduğu doğru olsa da, muazzam bilimsel ve teknolojik yan faydaları göz ardı edilemez.',
+        ex2: 'While it is true that social media has drawbacks, one cannot overlook how easily it keeps families connected.',
+        ex2Tr: 'Sosyal medyanın dezavantajları olduğu doğru olsa da, aileleri ne kadar kolay bağlantıda tuttuğu göz ardı edilemez.',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'hc6',
+        category: 'Hazır Cümle Kalıpları',
+        term: 'What stands out most is...',
+        sub: 'En çok dikkat çeken şey şudur ki...',
+        meaning: 'En göze çarpan / en dikkat çekici nokta şudur ki...',
+        tip: 'Writing Task 1 grafik özetlerinde veya Speaking Part 2’de bir yeri/kişiyi anlatırken vurgu yapmak için idealdir.',
+        ex1: 'What stands out most is the sharp upward trend in renewable energy consumption over the final five years.',
+        ex1Tr: 'En çok dikkat çeken nokta, son beş yılda yenilenebilir enerji tüketimindeki keskin yükseliş eğilimidir.',
+        ex2: 'What stands out most about my hometown is the seamless blend of historic architecture and modern parks.',
+        ex2Tr: 'Memleketimle ilgili en göze çarpan şey, tarihi mimari ile modern parkların kusursuz uyumudur.',
+        mastered: false,
+        isCustom: false
+      },
+
+      // --- HATA DEFTERİM (2 ÖRNEK KAYIT) ---
+      {
+        id: 'hd1',
+        category: 'Hata Defterim',
+        mistakeType: 'Writing',
+        term: 'Fast food has a very bad effect on people’s health and causes many problems.',
+        sub: 'Writing Task 2 — Kelime Çeşitliliği İyileştirmesi',
+        meaning: 'Excessive consumption of processed food exerts a detrimental impact on public health.',
+        tip: '"Very bad effect" yerine "detrimental impact" ve "have" yerine "exert" kullanmak kelime puanını doğrudan Band 8 seviyesine taşır.',
+        ex1: 'Excessive consumption of processed food exerts a detrimental impact on public health.',
+        ex1Tr: '',
+        ex2: '',
+        ex2Tr: '',
+        mastered: false,
+        isCustom: false
+      },
+      {
+        id: 'hd2',
+        category: 'Hata Defterim',
+        mistakeType: 'Speaking',
+        term: 'I am agree with this idea because technology makes our life more easy.',
+        sub: 'Speaking Part 3 — Yaygın Kalıp & Sıfat Hatası',
+        meaning: 'I wholeheartedly concur with this view, as technology makes daily life far more convenient.',
+        tip: '"Agree" bir fiildir, başına "am" gelmez ("I agree" veya "I concur"). Ayrıca "more easy" yerine "easier" veya "far more convenient" kullanın.',
+        ex1: 'I wholeheartedly concur with this view, as technology makes daily life far more convenient.',
+        ex1Tr: '',
+        ex2: '',
+        ex2Tr: '',
+        mastered: false,
+        isCustom: false
+      }
+    ];
+
+    // =========================================================================
+    // 2. UYGULAMA DURUMU (STATE) & LOCALSTORAGE YÖNETİMİ
+    // =========================================================================
+    const DATA_KEY = 'ielts_b8_items_v4';
+    const PREF_KEY = 'ielts_b8_prefs_v4';
+
+    let items = [];
+    let currentCategory = 'Akademik Kelimeler';
+    let currentListFilter = 'ALL';
+    let deck = [];
+    let cardIdx = 0;
+    let isFlipped = false;
+    let accent = 'en-GB';
+    let darkMode = false;
+
+    function init() {
+      try {
+        const saved = localStorage.getItem(DATA_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          items = Array.isArray(parsed) && parsed.length > 0 ? parsed : [...INITIAL_ITEMS];
+        } else {
+          items = [...INITIAL_ITEMS];
+          persistItems();
+        }
+      } catch (e) {
+        items = [...INITIAL_ITEMS];
+      }
+
+      try {
+        const prefs = JSON.parse(localStorage.getItem(PREF_KEY) || '{}');
+        if (prefs.accent) accent = prefs.accent;
+        if (typeof prefs.darkMode === 'boolean') darkMode = prefs.darkMode;
+      } catch (e) {}
+
+      applyTheme();
+      updateAccentButton();
+      selectCategory('Akademik Kelimeler');
+      renderListView();
+    }
+
+    function persistItems() {
+      try {
+        localStorage.setItem(DATA_KEY, JSON.stringify(items));
+      } catch (e) {}
+      updateHeaderProgress();
+    }
+
+    function persistPrefs() {
+      try {
+        localStorage.setItem(PREF_KEY, JSON.stringify({ accent, darkMode }));
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // 3. KATEGORİ SEÇİMİ & KART GÖSTERİMİ
+    // =========================================================================
+    function selectCategory(catName) {
+      currentCategory = catName;
+
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        const active = btn.getAttribute('data-cat') === catName;
+        if (active) {
+          btn.className = catName === 'Hata Defterim'
+            ? 'cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-extrabold bg-rose-600 text-white shadow-sm transition'
+            : 'cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-extrabold bg-brand-600 text-white shadow-sm transition';
+        } else {
+          btn.className = 'cat-pill shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition';
+        }
+      });
+
+      rebuildDeck();
+      cardIdx = 0;
+      isFlipped = false;
+      renderFlashcard();
+      updateHeaderProgress();
+    }
+
+    function rebuildDeck() {
+      if (currentCategory === 'Benim Eklediklerim') {
+        deck = items.filter(i => i.isCustom && i.category !== 'Hata Defterim');
+      } else {
+        deck = items.filter(i => i.category === currentCategory);
+      }
+    }
+
+    function renderFlashcard() {
+      const cardArea = document.getElementById('card-area');
+      const cardInner = document.getElementById('card-inner');
+      const controls = document.getElementById('study-controls');
+      const emptyState = document.getElementById('empty-state');
+      const counter = document.getElementById('card-counter');
+
+      cardInner.classList.remove('rotate-y-180');
+      isFlipped = false;
+
+      if (deck.length === 0) {
+        cardArea.classList.add('hidden');
+        controls.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        counter.textContent = 'Kart 0 / 0';
+
+        const eTitle = document.getElementById('empty-title');
+        const eDesc = document.getElementById('empty-desc');
+        if (currentCategory === 'Benim Eklediklerim') {
+          eTitle.textContent = 'Henüz kendi kartınızı eklemediniz';
+          eDesc.textContent = 'Alt menüdeki "Yeni Ekle" sekmesinden çalışmak istediğiniz kelime ve kalıpları ekleyebilirsiniz.';
+        } else if (currentCategory === 'Hata Defterim') {
+          eTitle.textContent = 'Hata Defterinizde kayıt yok';
+          eDesc.textContent = 'Speaking veya Writing hatalarınızı Band 8+ doğrusuyla buraya ekleyip tekrar edebilirsiniz.';
+        } else {
+          eTitle.textContent = 'Bu kategoride kart bulunamadı';
+          eDesc.textContent = 'Yeni kart ekleyerek çalışmaya başlayabilirsiniz.';
+        }
+        return;
+      }
+
+      cardArea.classList.remove('hidden');
+      controls.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+
+      if (cardIdx >= deck.length) cardIdx = 0;
+      if (cardIdx < 0) cardIdx = deck.length - 1;
+
+      const item = deck[cardIdx];
+      const isMistake = item.category === 'Hata Defterim';
+      counter.textContent = `Kart ${cardIdx + 1} / ${deck.length}`;
+
+      // Ön yüz elementleri
+      const frontCard = document.getElementById('card-front');
+      const backCard = document.getElementById('card-back');
+      const catBadge = document.getElementById('front-cat-badge');
+      const skillBadge = document.getElementById('front-skill-badge');
+      const customBadge = document.getElementById('front-custom-badge');
+      const mistakeTag = document.getElementById('front-mistake-tag');
+      const frontTerm = document.getElementById('front-term');
+      const frontSub = document.getElementById('front-sub');
+      const speakLabel = document.getElementById('front-speak-label');
+      const frontHint = document.getElementById('front-hint');
+      const statusBadge = document.getElementById('front-status-badge');
+      const deleteBtn = document.getElementById('back-delete-btn');
+
+      catBadge.textContent = item.category;
+      frontTerm.textContent = item.term;
+      frontSub.textContent = item.sub || '';
+
+      if (isMistake) {
+        frontCard.className = 'backface-hidden absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl border-2 border-rose-200 dark:border-rose-900/60 shadow-lg p-5 sm:p-6 flex flex-col justify-between';
+        backCard.className = 'backface-hidden rotate-y-180 absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl border-2 border-emerald-500/40 shadow-xl p-5 flex flex-col justify-between overflow-y-auto';
+        catBadge.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300';
+        skillBadge.classList.remove('hidden');
+        skillBadge.textContent = item.mistakeType === 'Writing' ? '✍️ Writing' : '🗣️ Speaking';
+        mistakeTag.classList.remove('hidden');
+        frontTerm.className = 'text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-relaxed break-words max-w-full px-1';
+        speakLabel.textContent = 'Hatalı Cümleyi Dinle';
+        frontHint.textContent = 'Band 8+ doğrusunu görmek için dokun';
+      } else {
+        frontCard.className = 'backface-hidden absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none p-5 sm:p-6 flex flex-col justify-between';
+        backCard.className = 'backface-hidden rotate-y-180 absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl border-2 border-brand-500/30 dark:border-brand-500/40 shadow-xl p-5 flex flex-col justify-between overflow-y-auto';
+        catBadge.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold bg-brand-50 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300';
+        skillBadge.classList.add('hidden');
+        mistakeTag.classList.add('hidden');
+        frontTerm.className = 'text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug break-words max-w-full px-1';
+        speakLabel.textContent = 'Telaffuzu Dinle';
+        frontHint.textContent = 'Açıklama ve örnekler için karta dokun';
+      }
+
+      if (item.isCustom) {
+        customBadge.classList.remove('hidden');
+        deleteBtn.classList.remove('hidden');
+      } else {
+        customBadge.classList.add('hidden');
+        deleteBtn.classList.add('hidden');
+      }
+
+      if (item.mastered) {
+        statusBadge.textContent = '✓ Öğrenildi';
+        statusBadge.className = 'shrink-0 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/70 dark:border-emerald-800/50';
+      } else {
+        statusBadge.textContent = 'Tekrar';
+        statusBadge.className = 'shrink-0 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/70 dark:border-amber-800/50';
+      }
+
+      // Arka yüz içerikleri
+      document.getElementById('back-title').textContent = isMistake ? `${item.mistakeType || 'IELTS'} Düzeltmesi` : item.term;
+
+      const stdBody = document.getElementById('back-standard-body');
+      const misBody = document.getElementById('back-mistake-body');
+
+      if (isMistake) {
+        stdBody.classList.add('hidden');
+        misBody.classList.remove('hidden');
+        document.getElementById('back-correction').textContent = `"${item.ex1 || item.meaning}"`;
+        const noteWrap = document.getElementById('back-mistake-note-wrap');
+        if (item.tip && item.tip.trim()) {
+          noteWrap.classList.remove('hidden');
+          document.getElementById('back-mistake-note').textContent = item.tip;
+        } else {
+          noteWrap.classList.add('hidden');
+        }
+      } else {
+        misBody.classList.add('hidden');
+        stdBody.classList.remove('hidden');
+        document.getElementById('back-meaning').textContent = item.meaning;
+
+        const tipEl = document.getElementById('back-tip');
+        if (item.tip && item.tip.trim()) {
+          tipEl.textContent = item.tip;
+          tipEl.classList.remove('hidden');
+        } else {
+          tipEl.classList.add('hidden');
+        }
+
+        document.getElementById('back-ex1').textContent = `"${item.ex1}"`;
+        const ex1TrEl = document.getElementById('back-ex1-tr');
+        if (item.ex1Tr && item.ex1Tr.trim()) {
+          ex1TrEl.textContent = item.ex1Tr;
+          ex1TrEl.classList.remove('hidden');
+        } else {
+          ex1TrEl.classList.add('hidden');
+        }
+
+        const ex2Box = document.getElementById('back-ex2-box');
+        if (item.ex2 && item.ex2.trim()) {
+          ex2Box.classList.remove('hidden');
+          document.getElementById('back-ex2').textContent = `"${item.ex2}"`;
+          const ex2TrEl = document.getElementById('back-ex2-tr');
+          if (item.ex2Tr && item.ex2Tr.trim()) {
+            ex2TrEl.textContent = item.ex2Tr;
+            ex2TrEl.classList.remove('hidden');
+          } else {
+            ex2TrEl.classList.add('hidden');
+          }
+        } else {
+          ex2Box.classList.add('hidden');
+        }
+      }
+    }
+
+    function flipCard() {
+      if (deck.length === 0) return;
+      isFlipped = !isFlipped;
+      const inner = document.getElementById('card-inner');
+      if (isFlipped) {
+        inner.classList.add('rotate-y-180');
+      } else {
+        inner.classList.remove('rotate-y-180');
+      }
+    }
+
+    function nextCard() {
+      if (deck.length === 0) return;
+      cardIdx = (cardIdx + 1) % deck.length;
+      renderFlashcard();
+    }
+
+    function prevCard() {
+      if (deck.length === 0) return;
+      cardIdx = (cardIdx - 1 + deck.length) % deck.length;
+      renderFlashcard();
+    }
+
+    function setCardMastery(status) {
+      if (deck.length === 0) return;
+      const current = deck[cardIdx];
+      const idx = items.findIndex(i => i.id === current.id);
+      if (idx !== -1) {
+        items[idx].mastered = status;
+        persistItems();
+      }
+      rebuildDeck();
+      showToast(status ? 'Öğrenildi olarak işaretlendi ✓' : 'Tekrar listesine alındı');
+      nextCard();
+    }
+
+    function shuffleCurrentDeck() {
+      if (deck.length <= 1) return;
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      cardIdx = 0;
+      renderFlashcard();
+      showToast('Kartlar karıştırıldı');
+    }
+
+    function resetCategoryMastery() {
+      if (deck.length === 0) return;
+      const ids = new Set(deck.map(d => d.id));
+      items = items.map(i => ids.has(i.id) ? { ...i, mastered: false } : i);
+      persistItems();
+      rebuildDeck();
+      cardIdx = 0;
+      renderFlashcard();
+      showToast('Bu bölümün ilerlemesi sıfırlandı');
+    }
+
+    function deleteActiveCard() {
+      if (deck.length === 0) return;
+      const current = deck[cardIdx];
+      if (!current.isCustom) return;
+      items = items.filter(i => i.id !== current.id);
+      persistItems();
+      rebuildDeck();
+      if (cardIdx >= deck.length) cardIdx = 0;
+      renderFlashcard();
+      renderListView();
+      showToast('Kart silindi');
+    }
+
+    function updateHeaderProgress() {
+      let scoped = [];
+      if (currentCategory === 'Benim Eklediklerim') {
+        scoped = items.filter(i => i.isCustom && i.category !== 'Hata Defterim');
+      } else {
+        scoped = items.filter(i => i.category === currentCategory);
+      }
+      const total = scoped.length;
+      const done = scoped.filter(i => i.mastered).length;
+      const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+
+      document.getElementById('header-progress').textContent = `${currentCategory}: ${done} / ${total} Öğrenildi`;
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+      document.getElementById('total-badge').textContent = items.length;
+    }
+
+    // =========================================================================
+    // 4. WEB SPEECH API SESLİ TELAFFUZ (UK / US)
+    // =========================================================================
+    function toggleAccent() {
+      accent = accent === 'en-GB' ? 'en-US' : 'en-GB';
+      updateAccentButton();
+      persistPrefs();
+      showToast(accent === 'en-GB' ? 'İngiliz Aksanı (UK) seçildi' : 'Amerikan Aksanı (US) seçildi');
+    }
+
+    function updateAccentButton() {
+      document.getElementById('accent-btn').textContent = accent === 'en-GB' ? '🇬🇧 UK' : '🇺🇸 US';
+    }
+
+    function speakText(text) {
+      if (!text || !('speechSynthesis' in window)) {
+        showToast('Cihazınız sesli okumayı desteklemiyor', 'error');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const clean = text.replace(/\.\.\./g, ' ');
+      const utterance = new SpeechSynthesisUtterance(clean);
+      utterance.lang = accent;
+      utterance.rate = 0.92;
+
+      const voices = window.speechSynthesis.getVoices();
+      const match = voices.find(v => v.lang === accent) || voices.find(v => v.lang.startsWith('en'));
+      if (match) utterance.voice = match;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakFront() {
+      if (deck.length === 0) return;
+      speakText(deck[cardIdx].term);
+    }
+
+    function speakExample(num) {
+      if (deck.length === 0) return;
+      const item = deck[cardIdx];
+      speakText(num === 1 ? item.ex1 : item.ex2);
+    }
+
+    // =========================================================================
+    // 5. YENİ EKLEME (KELİME/KALIP & HATA NOTU)
+    // =========================================================================
+    function switchAddMode(mode) {
+      const vBtn = document.getElementById('mode-vocab-btn');
+      const mBtn = document.getElementById('mode-mistake-btn');
+      const vForm = document.getElementById('form-vocab');
+      const mForm = document.getElementById('form-mistake');
+
+      if (mode === 'mistake') {
+        mBtn.className = 'py-2.5 px-3 rounded-xl text-xs font-extrabold bg-white dark:bg-slate-900 text-rose-600 dark:text-rose-400 shadow-sm transition';
+        vBtn.className = 'py-2.5 px-3 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-400 transition';
+        vForm.classList.add('hidden');
+        mForm.classList.remove('hidden');
+      } else {
+        vBtn.className = 'py-2.5 px-3 rounded-xl text-xs font-extrabold bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm transition';
+        mBtn.className = 'py-2.5 px-3 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-400 transition';
+        mForm.classList.add('hidden');
+        vForm.classList.remove('hidden');
+      }
+    }
+
+    function saveNewVocab(e) {
+      e.preventDefault();
+      const category = document.getElementById('v-category').value;
+      const term = document.getElementById('v-term').value.trim();
+      const meaning = document.getElementById('v-meaning').value.trim();
+      const tip = document.getElementById('v-tip').value.trim();
+      const ex1 = document.getElementById('v-ex1').value.trim();
+      const ex1Tr = document.getElementById('v-ex1-tr').value.trim();
+      const ex2 = document.getElementById('v-ex2').value.trim();
+
+      if (!term || !meaning || !ex1) return;
+
+      items.unshift({
+        id: 'cust_' + Date.now(),
+        category,
+        term,
+        sub: category,
+        meaning,
+        tip,
+        ex1,
+        ex1Tr,
+        ex2,
+        ex2Tr: '',
+        mastered: false,
+        isCustom: true
+      });
+
+      persistItems();
+      document.getElementById('form-vocab').reset();
+      showToast('Yeni kart kaydedildi!');
+      switchTab('study');
+      selectCategory('Benim Eklediklerim');
+      renderListView();
+    }
+
+    function saveNewMistake(e) {
+      e.preventDefault();
+      const skillEl = document.querySelector('input[name="m-skill"]:checked');
+      const mistakeType = skillEl ? skillEl.value : 'Speaking';
+      const wrong = document.getElementById('m-wrong').value.trim();
+      const correct = document.getElementById('m-correct').value.trim();
+      const tip = document.getElementById('m-note').value.trim();
+
+      if (!wrong || !correct) return;
+
+      items.unshift({
+        id: 'mist_' + Date.now(),
+        category: 'Hata Defterim',
+        mistakeType,
+        term: wrong,
+        sub: `${mistakeType} Hata Kaydı`,
+        meaning: correct,
+        tip,
+        ex1: correct,
+        ex1Tr: '',
+        ex2: '',
+        ex2Tr: '',
+        mastered: false,
+        isCustom: true
+      });
+
+      persistItems();
+      document.getElementById('form-mistake').reset();
+      showToast('Hata Defterime kaydedildi!');
+      switchTab('study');
+      selectCategory('Hata Defterim');
+      renderListView();
+    }
+
+    // =========================================================================
+    // 6. LİSTEM, ARAMA, SİLME & JSON YEDEKLEME
+    // =========================================================================
+    function selectListFilter(lf) {
+      currentListFilter = lf;
+      document.querySelectorAll('.lf-pill').forEach(btn => {
+        const active = btn.getAttribute('data-lf') === lf;
+        btn.className = active
+          ? 'lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-extrabold bg-brand-600 text-white transition'
+          : 'lf-pill shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 transition';
+      });
+      renderListView();
+    }
+
+    function renderListView() {
+      const container = document.getElementById('list-container');
+      const q = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+
+      const filtered = items.filter(item => {
+        if (currentListFilter === 'Benim Eklediklerim' && (!item.isCustom || item.category === 'Hata Defterim')) return false;
+        if (currentListFilter === 'Speaking' && (item.category !== 'Hata Defterim' || item.mistakeType !== 'Speaking')) return false;
+        if (currentListFilter === 'Writing' && (item.category !== 'Hata Defterim' || item.mistakeType !== 'Writing')) return false;
+        if (!['ALL', 'Benim Eklediklerim', 'Speaking', 'Writing'].includes(currentListFilter) && item.category !== currentListFilter) return false;
+
+        if (!q) return true;
+        return (
+          item.term.toLowerCase().includes(q) ||
+          item.meaning.toLowerCase().includes(q) ||
+          (item.tip && item.tip.toLowerCase().includes(q)) ||
+          (item.ex1 && item.ex1.toLowerCase().includes(q))
+        );
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800">
+            <p class="text-xs sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Eşleşen kayıt bulunamadı.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const isMistake = item.category === 'Hata Defterim';
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl border ${isMistake ? 'border-rose-200/80 dark:border-rose-900/50' : 'border-slate-200 dark:border-slate-800'} p-4 shadow-sm">
+            <div class="flex items-start justify-between gap-2">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-bold ${isMistake ? 'bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300' : 'bg-brand-50 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300'}">${esc(item.category)}</span>
+                  ${isMistake && item.mistakeType ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${item.mistakeType === 'Writing' ? '✍️ Writing' : '🗣️ Speaking'}</span>` : ''}
+                  ${item.isCustom && !isMistake ? '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">⭐ Özel</span>' : ''}
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-bold ${item.mastered ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400' : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'}">
+                    ${item.mastered ? '✓ Öğrenildi' : 'Tekrar'}
+                  </span>
+                </div>
+                ${isMistake ? `
+                  <p class="text-xs font-semibold text-rose-600 dark:text-rose-400 line-through mt-1">❌ ${esc(item.term)}</p>
+                  <h4 class="text-sm font-extrabold text-emerald-700 dark:text-emerald-400 mt-1">✅ ${esc(item.ex1 || item.meaning)}</h4>
+                  ${item.tip ? `<p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">💡 ${esc(item.tip)}</p>` : ''}
+                ` : `
+                  <h4 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">${esc(item.term)}</h4>
+                  <p class="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">${esc(item.meaning)}</p>
+                `}
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="speakText('${escJs(isMistake ? (item.ex1 || item.meaning) : item.term)}')" class="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300 flex items-center justify-center hover:bg-brand-100 transition" title="Dinle">
+                  <i class="fa-solid fa-volume-high text-xs"></i>
+                </button>
+                ${item.isCustom ? `
+                  <button onclick="removeItemById('${item.id}')" class="w-9 h-9 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-500 flex items-center justify-center hover:bg-rose-100 transition" title="Sil">
+                    <i class="fa-solid fa-trash-can text-xs"></i>
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+            ${!isMistake ? `
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800 italic">
+                "${esc(item.ex1)}"
+              </p>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function removeItemById(id) {
+      items = items.filter(i => i.id !== id);
+      persistItems();
+      rebuildDeck();
+      renderFlashcard();
+      renderListView();
+      showToast('Kayıt silindi');
+    }
+
+    function exportJSON() {
+      const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ielts_band8_yedek_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('JSON yedeği indirildi');
+    }
+
+    function importJSON(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (Array.isArray(data) && data.length > 0) {
+            items = data;
+            persistItems();
+            rebuildDeck();
+            cardIdx = 0;
+            renderFlashcard();
+            renderListView();
+            showToast('Yedek başarıyla yüklendi!');
+          } else {
+            showToast('Geçersiz yedek dosyası', 'error');
+          }
+        } catch (err) {
+          showToast('Dosya okunamadı', 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // =========================================================================
+    // 7. SEKME GEÇİŞLERİ, TEMA & YARDIMCI FONKSİYONLAR
+    // =========================================================================
+    function switchTab(tab) {
+      ['study', 'add', 'list'].forEach(t => {
+        const view = document.getElementById(`view-${t}`);
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tab) {
+          view.classList.remove('hidden');
+          btn.className = 'flex flex-col items-center justify-center py-2 rounded-2xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 font-extrabold transition';
+        } else {
+          view.classList.add('hidden');
+          btn.className = 'flex flex-col items-center justify-center py-2 rounded-2xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold transition';
+        }
+      });
+      if (tab === 'list') renderListView();
+    }
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      applyTheme();
+      persistPrefs();
+    }
+
+    function applyTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      if (darkMode) {
+        html.classList.add('dark');
+        icon.className = 'fa-solid fa-sun text-sm text-amber-400';
+      } else {
+        html.classList.remove('dark');
+        icon.className = 'fa-solid fa-moon text-sm';
+      }
+    }
+
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toast');
+      const icon = document.getElementById('toast-icon');
+      document.getElementById('toast-msg').textContent = msg;
+      icon.className = type === 'error'
+        ? 'fa-solid fa-circle-exclamation text-rose-400'
+        : 'fa-solid fa-circle-check text-emerald-400';
+
+      toast.classList.remove('opacity-0', '-translate-y-2');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(window._tTimer);
+      window._tTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', '-translate-y-2');
+      }, 2200);
+    }
+
+    function esc(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function escJs(str) {
+      return String(str || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
